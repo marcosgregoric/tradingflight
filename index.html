@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradingFlight MVP - Diseño Moderno</title>
+    <title>TradingFlight MVP - Diseño Responsive</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Paleta de Colores y Tipografía */
+        /* Paleta de Colores y Tipografía (Mantenida) */
         :root {
-            --primary-color: #0070c0; /* Azul Eléctrico para Marca y Acción */
-            --secondary-color: #f7f9fc; /* Fondo muy claro */
+            --primary-color: #0070c0;
+            --secondary-color: #f7f9fc;
             --text-color: #333;
             --light-gray: #e9ecef;
             --success-color: #28a745;
             --danger-color: #dc3545;
-            --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; /* Fuente moderna */
+            --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             --border-radius: 8px;
         }
 
@@ -166,7 +166,7 @@
             text-align: center;
         }
         .status-waiting {
-            background-color: #fff3cd; /* Amarillo suave */
+            background-color: #fff3cd;
             color: #856404;
         }
         .status-executed {
@@ -224,6 +224,58 @@
         /* Ocultar sección de demo al inicio */
         #active-order-section, #execution-success {
             display: none;
+        }
+
+        /* ======================================= */
+        /* MEDIA QUERIES (OPTIMIZACIÓN MÓVIL) */
+        /* ======================================= */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px; /* Reducir padding general */
+            }
+
+            .container {
+                padding: 20px;
+                border-radius: 10px;
+            }
+            
+            /* Ajuste de Títulos */
+            h1 {
+                font-size: 28px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            
+            /* Formulario: de 2 columnas a 1 columna */
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .full-width {
+                grid-column: 1 / 2; /* Asegurar que ocupe todo el ancho */
+            }
+
+            /* Métricas: de 3 columnas a 1 columna (o 2 si es necesario) */
+            .metric-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            /* Reducir tamaño de fuente en métricas para que quepan */
+            .metric-value {
+                font-size: 24px;
+            }
+            
+            .btn-primary {
+                width: 100%;
+                font-size: 16px;
+            }
+            
+            /* Botón Cancelar en la sección activa */
+            #active-order-section .btn-primary {
+                width: 100%;
+            }
         }
     </style>
 </head>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradingFlight - Vos Ponés el Valor a Tu Vuelo</title>
+    <style>
+        :root {
+            --primary-color: #007bff; /* Azul vibrante */
+            --secondary-color: #f8f9fa; /* Gris claro */
+            --success-color: #28a745; /* Verde para éxito */
+            --danger-color: #dc3545; /* Rojo para precios altos */
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #495057;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
+        }
+
+        /* --- Estilos de Formulario de Creación de Orden --- */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"], select, input[type="date"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        /* Estilo específico para el Precio Límite */
+        #precio-limite {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--danger-color);
+            border: 2px solid var(--danger-color);
+            text-align: center;
+        }
+
+        .full-width {
+            grid-column: 1 / 3;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            grid-column: 1 / 3;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Estilos del Panel de Trading Activo --- */
+        .trading-panel {
+            background-color: #f1f7fe;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .metric-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-title {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .price-current {
+            color: var(--danger-color); /* Inicialmente alto */
+        }
+        
+        .price-down {
+            color: var(--success-color); /* Para simular bajada */
+        }
+
+        .timer {
+            color: var(--primary-color);
+        }
+
+        /* Gráfico simulado */
+        .chart-placeholder {
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><polyline points="0,120 10,100 20,80 30,90 40,60 50,70 60,50 70,70 80,60 90,40 100,50" fill="none" stroke="%23007bff" stroke-width="2"/><line x1="0" y1="100" x2="100" y2="100" stroke="%23dc3545" stroke-dasharray="2" stroke-width="1.5"/><text x="5" y="115" font-size="10" fill="%23dc3545">Límite $600</text></svg>') no-repeat center center / 100% 100%;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            margin-top: 10px;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✈️ TradingFlight</h1>
+        <p style="text-align: center; font-style: italic; color: #6c757d;">"Vos ponés el valor a tu vuelo"</p>
+        
+        <h2>1. Crear Orden de Trading</h2>
+        <p>Define tu presupuesto máximo y autoriza la compra por un tiempo limitado.</p>
+        
+        <form class="form-grid">
+            <div class="form-group">
+                <label for="origen">Origen</label>
+                <input type="text" id="origen" value="Buenos Aires (BUE)" required>
+            </div>
+            <div class="form-group">
+                <label for="destino">Destino</label>
+                <input type="text" id="destino" value="Nueva York (NYC)" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="fecha-salida">Fecha de Salida Mínima</label>
+                <input type="date" id="fecha-salida" value="2026-04-01" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha-regreso">Fecha de Regreso Máxima</label>
+                <input type="date" id="fecha-regreso" value="2026-04-15" required>
+            </div>
+
+            <div class="form-group">
+                <label for="precio-limite">Precio Límite (Presupuesto Máximo en USD)</label>
+                <input type="number" id="precio-limite" value="600" min="100" required>
+            </div>
+            <div class="form-group">
+                <label for="vigencia">Vigencia de la Orden</label>
+                <select id="vigencia" required>
+                    <option value="48">48 Horas</option>
+                    <option value="7">7 Días</option>
+                    <option value="30">30 Días</option>
+                </select>
+            </div>
+            
+            <div class="form-group full-width">
+                <label>Autorización de Compra Segura</label>
+                <p style="font-size: 14px; color: var(--success-color); margin-top: 0;">✅ Tarjeta Visa terminada en 4321, autorizada para un monto máximo de $600 USD.</p>
+            </div>
+
+            <button type="submit" class="btn-primary">Crear Orden de Trading (Búsqueda Activa)</button>
+        </form>
+
+        <h2>2. Panel de Trading Activo (Monitoreo en Vivo)</h2>
+        <p>La aplicación está comprobando precios de forma automática y se ejecutará si el precio baja del límite.</p>
+        
+        <div class="trading-panel">
+            <div style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">
+                BUE ➡️ NYC | Vigencia: <span class="timer">47h 55m restantes</span>
+            </div>
+            
+            <div class="metric-grid">
+                <div class="metric-box">
+                    <div class="metric-title">Mi Precio Límite</div>
+                    <div class="metric-value" style="color: var(--primary-color);">$600 USD</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-title">Precio Actual de Mercado</div>
+                    <div class="metric-value price-current">$650 USD 🔺</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-title">Estado de la Orden</div>
+                    <div class="metric-value" style="color: var(--danger-color);">ACTIVA (En Espera)</div>
+                </div>
+            </div>
+
+            <label style="font-weight: bold; margin-top: 10px;">Gráfico de Tendencia de Precios vs. Tu Límite</label>
+            <div class="chart-placeholder">
+                </div>
+            <p style="text-align: center; font-size: 14px; margin-top: 10px; color: #6c757d;">*(Línea roja: Tu límite de $600 USD. La línea azul muestra las fluctuaciones del mercado.)*</p>
+        </div>
+
+        <h2 style="color: var(--success-color);">3. Simulación: ¡Ejecución Exitosa!</h2>
+        <div class="trading-panel" style="background-color: #e6f7ed; border-color: var(--success-color);">
+            <p style="font-size: 20px; font-weight: bold; color: var(--success-color); text-align: center;">¡ORDEN EJECUTADA AUTOMÁTICAMENTE!</p>
+            <div class="metric-grid">
+                <div class="metric-box">
+                    <div class="metric-title">Precio Comprado</div>
+                    <div class="metric-value price-down">$585 USD</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-title">Ahorro vs. Límite</div>
+                    <div class="metric-value price-down">$15 USD</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-title">Comprado por</div>
+                    <div class="metric-value" style="font-size: 20px;">TradingFlight Bot</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 15px;">Tu billete electrónico ha sido enviado al email asociado. ¡Buen viaje!</p>
+        </div>
+        
+    </div>
+</body>
+</html>

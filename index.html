@@ -3,146 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradingFlight MVP - Demo Funcional</title>
+    <title>TradingFlight MVP - Diseño Moderno</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Paleta de Colores y Tipografía */
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #f8f9fa;
+            --primary-color: #0070c0; /* Azul Eléctrico para Marca y Acción */
+            --secondary-color: #f7f9fc; /* Fondo muy claro */
+            --text-color: #333;
+            --light-gray: #e9ecef;
             --success-color: #28a745;
             --danger-color: #dc3545;
-            --warning-color: #ffc107;
-            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; /* Fuente moderna */
+            --border-radius: 8px;
         }
+
         body {
             font-family: var(--font-family);
             background-color: var(--secondary-color);
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 30px;
+            color: var(--text-color);
+            line-height: 1.6;
         }
+
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
-        h1 {
+
+        /* LOGO y TÍTULO */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .logo-icon {
+            font-size: 36px;
             color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+        }
+        
+        .slogan {
             text-align: center;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
+            font-style: italic;
+            color: #6c757d;
+            margin-top: -10px;
             margin-bottom: 20px;
         }
+
         h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
             margin-top: 30px;
-            color: #495057;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 5px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary-color);
         }
+
+        /* --- Estilos de Formulario --- */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 25px;
+            margin-bottom: 25px;
         }
+
         .form-group {
             display: flex;
             flex-direction: column;
         }
+
         label {
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-weight: 600;
+            margin-bottom: 8px;
             color: #555;
+            font-size: 14px;
         }
-        input[type="text"], input[type="number"], select, input[type="date"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+
+        input:not([type="checkbox"]), select {
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
             font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
+        
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 112, 192, 0.1);
+            outline: none;
+        }
+
         #precio-limite {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 700;
             color: var(--danger-color);
             border: 2px solid var(--danger-color);
             text-align: center;
+            background-color: #fffafa;
         }
+
         .full-width {
             grid-column: 1 / 3;
         }
+
         .btn-primary {
             background-color: var(--primary-color);
             color: white;
-            padding: 15px 25px;
+            padding: 15px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             cursor: pointer;
             font-size: 18px;
-            font-weight: bold;
-            transition: background-color 0.2s;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
             grid-column: 1 / 3;
-            margin-top: 10px;
+            margin-top: 15px;
         }
+
         .btn-primary:hover:not(:disabled) {
-            background-color: #0056b3;
+            background-color: #005a9f;
+            transform: translateY(-1px);
         }
+        
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* --- Estilos del Panel de Trading Activo --- */
         .trading-panel {
-            background-color: #f1f7fe;
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            padding: 20px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 25px;
             margin-top: 20px;
         }
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .metric-box {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-        .metric-title {
-            font-size: 14px;
-            color: #6c757d;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        .metric-value {
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .price-current {
-            color: var(--danger-color);
-        }
-        .price-down {
-            color: var(--success-color);
-        }
-        .timer {
-            color: var(--primary-color);
-        }
+        
         .status-box {
-            font-size: 20px;
-            font-weight: bold;
-            padding: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 12px;
             border-radius: 6px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
         }
         .status-waiting {
-            background-color: var(--warning-color);
-            color: #333;
+            background-color: #fff3cd; /* Amarillo suave */
+            color: #856404;
         }
         .status-executed {
             background-color: var(--success-color);
             color: white;
         }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .metric-box {
+            background: #fff;
+            padding: 20px 10px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-title {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .price-current {
+            color: var(--danger-color);
+        }
+        
+        .price-down {
+            color: var(--success-color);
+        }
+
+        .route-info {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .timer {
+            font-size: 16px;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        
         /* Ocultar sección de demo al inicio */
         #active-order-section, #execution-success {
             display: none;
@@ -151,57 +229,66 @@
 </head>
 <body>
     <div class="container">
-        <h1>✈️ TradingFlight MVP Demo</h1>
-        <p style="text-align: center; font-style: italic; color: #6c757d;">"Vos ponés el valor a tu vuelo"</p>
+        <header class="header">
+            <i class="fas fa-plane-departure logo-icon"></i>
+            <h1>TradingFlight</h1>
+        </header>
+        <p class="slogan">"Vos ponés el valor a tu vuelo"</p>
         
         <section id="create-order-section">
-            <h2>1. Crear Orden de Trading</h2>
-            <p>Define tu presupuesto y autoriza la compra.</p>
+            <h2><i class="fas fa-calculator" style="margin-right: 10px;"></i>1. Definir Orden de Trading</h2>
+            <p style="color: #6c757d;">Establece tus parámetros de vuelo y tu presupuesto máximo. La compra se ejecutará por ti.</p>
             
             <form class="form-grid" id="order-form">
                 <div class="form-group">
-                    <label for="origen">Origen</label>
+                    <label for="origen"><i class="fas fa-map-marker-alt"></i> Origen</label>
                     <input type="text" id="origen" value="Buenos Aires (BUE)" required>
                 </div>
                 <div class="form-group">
-                    <label for="destino">Destino</label>
+                    <label for="destino"><i class="fas fa-location-arrow"></i> Destino</label>
                     <input type="text" id="destino" value="Nueva York (NYC)" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="precio-limite">Precio Límite (Presupuesto Máximo en USD)</label>
+                    <label for="precio-limite"><i class="fas fa-dollar-sign"></i> Precio Límite (USD)</label>
                     <input type="number" id="precio-limite" value="600" min="100" required>
                 </div>
                 <div class="form-group">
-                    <label for="vigencia">Vigencia de la Orden (Horas)</label>
+                    <label for="vigencia"><i class="fas fa-clock"></i> Vigencia de la Orden (Horas)</label>
                     <input type="number" id="vigencia" value="48" min="1" required>
                 </div>
                 
-                <div class="form-group full-width">
-                    <p style="font-size: 14px; color: var(--success-color); margin-top: 0;">✅ Tarjeta Visa terminada en 4321 pre-autorizada para el monto máximo. La compra será automática si el precio baja.</p>
+                <div class="form-group full-width" style="margin-top: -15px;">
+                    <p style="font-size: 14px; color: var(--success-color); font-weight: 600;">
+                        <i class="fas fa-lock"></i> Autorización de Compra: Tarjeta pre-autorizada de forma segura por el monto máximo.
+                    </p>
                 </div>
 
-                <button type="submit" class="btn-primary" id="create-button">Crear Orden de Trading</button>
+                <button type="submit" class="btn-primary" id="create-button">
+                    <i class="fas fa-chart-line"></i> Crear Orden de Trading
+                </button>
             </form>
         </section>
 
         <section id="active-order-section">
-            <h2>2. Panel de Trading Activo (Monitoreo en Vivo)</h2>
-            <p id="monitoring-info">La aplicación está comprobando precios cada 30 segundos...</p>
+            <h2><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i>2. Monitoreo Activo</h2>
             
             <div class="trading-panel">
                 <div class="status-box status-waiting" id="order-status">ACTIVA (Monitoreando)</div>
-                <div style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">
-                    <span id="route-info">BUE ➡️ NYC</span> | Vigencia: <span class="timer" id="time-remaining">48h 00m restantes</span>
+
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="route-info" id="route-info">BUE ➡️ NYC</div>
+                    <div class="timer" id="time-remaining">48h 00m restantes</div>
+                    <p style="font-size: 14px; color: #6c757d;" id="monitoring-info">Chequeando precios cada 30 segundos...</p>
                 </div>
                 
                 <div class="metric-grid">
                     <div class="metric-box">
-                        <div class="metric-title">Mi Precio Límite</div>
+                        <div class="metric-title">Mi Límite</div>
                         <div class="metric-value" id="limit-price" style="color: var(--primary-color);"></div>
                     </div>
                     <div class="metric-box">
-                        <div class="metric-title">Precio Actual de Mercado</div>
+                        <div class="metric-title">Precio Actual</div>
                         <div class="metric-value price-current" id="current-price-display">$650 USD 🔺</div>
                     </div>
                     <div class="metric-box">
@@ -210,15 +297,19 @@
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 20px;">
-                <button class="btn-primary" style="grid-column: unset; background-color: var(--danger-color);" onclick="cancelOrder()">Cancelar Orden</button>
-            </p>
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="btn-primary" style="grid-column: unset; background-color: var(--danger-color); width: 50%;" onclick="cancelOrder()">
+                    <i class="fas fa-times-circle"></i> Cancelar Orden
+                </button>
+            </div>
         </section>
 
         <section id="execution-success">
-            <h2 style="color: var(--success-color);">🎉 ¡Orden Ejecutada!</h2>
+            <h2 style="color: var(--success-color); border-left-color: var(--success-color);"><i class="fas fa-check-circle" style="margin-right: 10px;"></i>¡Orden Ejecutada con Éxito!</h2>
             <div class="trading-panel" style="background-color: #e6f7ed; border-color: var(--success-color);">
-                <p style="font-size: 22px; font-weight: bold; color: var(--success-color); text-align: center;">¡TU VUELO HA SIDO COMPRADO AUTOMÁTICAMENTE!</p>
+                <p style="font-size: 22px; font-weight: bold; color: var(--success-color); text-align: center; margin-bottom: 25px;">
+                    ¡TU VUELO HA SIDO COMPRADO AUTOMÁTICAMENTE!
+                </p>
                 <div class="metric-grid">
                     <div class="metric-box">
                         <div class="metric-title">Precio Comprado</div>
@@ -233,61 +324,53 @@
                         <div class="metric-value" id="execution-time"></div>
                     </div>
                 </div>
-                <p style="text-align: center; margin-top: 15px;">Tu billete electrónico ha sido enviado al email. ¡Buen viaje!</p>
+                <p style="text-align: center; margin-top: 25px; font-size: 16px;">
+                    <i class="fas fa-ticket-alt"></i> Tu billete electrónico y la confirmación de pago se enviaron a tu email. ¡Buen viaje!
+                </p>
             </div>
         </section>
     </div>
 
     <script>
-        // Variables globales
+        // Variables globales y lógica de simulación (MANTENIDO)
         let limitPrice = 0;
         let checkCount = 0;
         let checkInterval;
         let countdownInterval;
         let executionPrice = 0;
-        const CHECK_PERIOD_MS = 3000; // 3 segundos para la DEMO (serían 30 minutos en la vida real)
-        const EXECUTION_CHECK_COUNT = 5; // Forzar la ejecución en el 5º chequeo
+        const CHECK_PERIOD_MS = 3000;
+        const EXECUTION_CHECK_COUNT = 5;
 
-        // DOM Elements
         const createSection = document.getElementById('create-order-section');
         const activeSection = document.getElementById('active-order-section');
         const successSection = document.getElementById('execution-success');
         const form = document.getElementById('order-form');
         const createButton = document.getElementById('create-button');
 
-        // Handlers de estado
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             startMonitoring();
         });
 
         function startMonitoring() {
-            // 1. Obtener valores del formulario
             limitPrice = parseFloat(document.getElementById('precio-limite').value);
             const vigenciaHours = parseInt(document.getElementById('vigencia').value);
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
 
-            // 2. Actualizar el panel activo (Sección 2)
             document.getElementById('limit-price').textContent = `$${limitPrice.toFixed(2)} USD`;
-            document.getElementById('route-info').textContent = `${origen.split(' ')[0]} ➡️ ${destino.split(' ')[0]}`;
+            document.getElementById('route-info').textContent = `${origen.split('(')[0].trim()} ➡️ ${destino.split('(')[0].trim()}`;
             
-            // 3. Ocultar formulario, mostrar panel
             createSection.style.display = 'none';
             activeSection.style.display = 'block';
             successSection.style.display = 'none';
             
-            // Reiniciar contadores
             checkCount = 0;
             document.getElementById('check-count').textContent = checkCount;
             document.getElementById('order-status').className = 'status-box status-waiting';
             document.getElementById('order-status').textContent = 'ACTIVA (Monitoreando)';
 
-
-            // 4. Iniciar el monitoreo (Checkeo de precios)
             checkInterval = setInterval(checkPrice, CHECK_PERIOD_MS);
-            
-            // 5. Iniciar el temporizador de vigencia
             startCountdown(vigenciaHours);
         }
 
@@ -297,62 +380,46 @@
 
             let currentPrice = 0;
             
-            // ----------------------------------------------------
-            // LÓGICA DE DEMO (Simulación de Búsqueda de Precio)
-            // ----------------------------------------------------
             if (checkCount < EXECUTION_CHECK_COUNT) {
-                // Durante los primeros chequeos, el precio es alto y fluctuante (simulación)
-                // Precio entre $620 y $680
                 currentPrice = Math.floor(Math.random() * 60) + 620; 
-                document.getElementById('monitoring-info').textContent = `La aplicación está comprobando precios cada ${CHECK_PERIOD_MS / 1000} segundos...`;
+                document.getElementById('monitoring-info').textContent = `Chequeando precios cada ${CHECK_PERIOD_MS / 1000} segundos...`;
                 
-                // Si el precio es alto, es rojo
                 const priceDisplay = document.getElementById('current-price-display');
                 priceDisplay.textContent = `$${currentPrice} USD 🔺`;
                 priceDisplay.className = 'metric-value price-current'; 
 
             } else if (checkCount === EXECUTION_CHECK_COUNT) {
-                // ¡Punto de Ejecución Forzada para la Demo!
-                // El precio baja justo por debajo del límite ($600)
-                executionPrice = limitPrice - Math.floor(Math.random() * 10) - 1; // Ej: $589 a $599
-                
-                // ----------------------------------------------------
-                // EJECUCIÓN DE LA ORDEN
-                // ----------------------------------------------------
+                executionPrice = limitPrice - Math.floor(Math.random() * 10) - 1; 
                 executeOrder(executionPrice);
                 clearInterval(checkInterval);
                 clearInterval(countdownInterval);
                 return;
             } else {
-                // La orden ha fallado por límite de tiempo (Si no se ejecuta antes)
                 clearInterval(checkInterval);
                 clearInterval(countdownInterval);
                 document.getElementById('order-status').textContent = 'FALLIDA (Tiempo Expirado)';
-                document.getElementById('order-status').className = 'status-box'; // Vuelve a color neutral
+                document.getElementById('order-status').className = 'status-box';
                 return;
             }
         }
 
         function executeOrder(price) {
-            // Actualizar la Sección 2 (Panel Activo)
             const priceDisplay = document.getElementById('current-price-display');
             priceDisplay.textContent = `$${price} USD ✅`;
             priceDisplay.className = 'metric-value price-down';
             document.getElementById('order-status').textContent = '¡EJECUTADA!';
             document.getElementById('order-status').className = 'status-box status-executed';
 
-            // Mostrar la Sección 3 (Éxito)
             setTimeout(() => {
                 activeSection.style.display = 'none';
                 successSection.style.display = 'block';
 
-                // Rellenar datos de éxito
                 document.getElementById('purchased-price').textContent = `$${price} USD`;
                 const savings = limitPrice - price;
                 document.getElementById('savings-amount').textContent = `$${savings.toFixed(2)} USD`;
-                document.getElementById('execution-time').textContent = `Checkeo #${checkCount}`;
+                document.getElementById('execution-time').textContent = `Chequeo #${checkCount}`;
 
-            }, 1000); // 1 segundo de retraso para que se vea el cambio en el panel activo
+            }, 1000);
         }
 
         function startCountdown(hours) {
@@ -372,7 +439,7 @@
                 
                 display.textContent = `${h}h ${m}m ${s}s restantes`;
 
-            }, 1000); // Actualización cada 1 segundo
+            }, 1000);
         }
 
         function cancelOrder() {
@@ -384,7 +451,6 @@
             successSection.style.display = 'none';
         }
         
-        // Inicialización: Llenar el precio límite en el panel activo al cargar por primera vez
         document.getElementById('limit-price').textContent = `$${parseFloat(document.getElementById('precio-limite').value).toFixed(2)} USD`;
     </script>
 </body>

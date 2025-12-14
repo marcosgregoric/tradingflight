@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradingFlight MVP - Columna Única con Fechas</title>
+    <title>TradingFlight MVP - Autorización de Pago</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Paleta y Reset Básico */
@@ -65,10 +65,10 @@
             border-left: 4px solid var(--primary-color);
         }
 
-        /* --- Estilos de Formulario: COLUMNA ÚNICA --- */
+        /* --- Estilos de Formulario (Columna Única) --- */
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Forzar SIEMPRE una sola columna */
+            grid-template-columns: 1fr; /* Siempre una columna */
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -84,6 +84,34 @@
         /* Estilo específico para el campo de precio límite */
         #precio-limite { font-size: 28px; font-weight: 700; color: var(--danger-color); border: 2px solid var(--danger-color); text-align: center; background-color: #fffafa; }
         
+        /* Contenedor de 2 columnas para el formulario de pago (Escritorio) */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        /* Clase para campos de tarjeta que pueden ir uno al lado del otro en escritorio */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Valor clave en la pantalla de pago */
+        .auth-value {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--danger-color);
+            margin-bottom: 15px;
+            text-align: center;
+            background-color: #fffafa;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--danger-color);
+        }
+
+        /* Botones */
         .full-width { grid-column: 1 / 2; }
         .btn-primary {
             background-color: var(--primary-color);
@@ -100,7 +128,7 @@
             box-sizing: border-box;
         }
 
-        /* --- Estilos del Panel de Trading Activo (Mantenido) --- */
+        /* --- Estilos de las Métricas (Paneles de Monitoreo) --- */
         .trading-panel {
             background-color: var(--secondary-color);
             border: 1px solid var(--light-gray);
@@ -114,14 +142,18 @@
         .metric-box { background: #fff; padding: 15px 8px; border-radius: var(--border-radius); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); }
         .metric-title { font-size: 11px; color: #6c757d; margin-bottom: 3px; text-transform: uppercase; }
         .metric-value { font-size: 26px; font-weight: 700; color: var(--text-color); }
-        #active-order-section, #execution-success { display: none; }
+        
+        /* Ocultar secciones al inicio */
+        #payment-auth-section, #active-order-section, #execution-success { display: none; }
+        
+        /* Colores de estado */
         .status-waiting { background-color: #fff3cd; color: #856404; }
         .status-executed { background-color: var(--success-color); color: white; }
         .price-current { color: var(--danger-color); }
         .price-down { color: var(--success-color); }
 
         /* ======================================= */
-        /* MEDIA QUERIES (Ajustes finos) */
+        /* MEDIA QUERIES (Ajustes finos para móviles) */
         /* ======================================= */
         @media (max-width: 650px) {
             .container {
@@ -132,6 +164,10 @@
             .metric-grid {
                 grid-template-columns: 1fr;
                 gap: 8px;
+            }
+            /* Forzar las 2 columnas del formulario de pago a 1 columna en móvil */
+            .two-columns {
+                grid-template-columns: 1fr;
             }
             h1 { font-size: 22px; }
             h2 { font-size: 18px; }
@@ -181,21 +217,56 @@
                     <label for="vigencia"><i class="fas fa-clock"></i> Vigencia de la Orden (Horas)</label>
                     <input type="number" id="vigencia" value="48" min="1" required>
                 </div>
+
+                <button type="submit" class="btn-primary" id="continue-button">
+                    <i class="fas fa-arrow-right"></i> Continuar a Autorización de Pago
+                </button>
+            </form>
+        </section>
+        
+        <section id="payment-auth-section">
+            <h2 style="color: var(--danger-color); border-left-color: var(--danger-color);"><i class="fas fa-credit-card" style="margin-right: 10px;"></i>2. Autorización de Pago</h2>
+            <p style="color: #6c757d;">Para activar el trading, necesitamos una pre-autorización de su método de pago.</p>
+            
+            <p style="font-weight: 600; text-align: center;">Monto Máximo a Autorizar:</p>
+            <div class="auth-value" id="auth-limit-display">$600 USD</div>
+
+            <form class="payment-grid" id="auth-form">
                 
-                <div class="form-group full-width" style="margin-top: -5px;">
-                    <p style="font-size: 14px; color: var(--success-color); font-weight: 600;">
-                        <i class="fas fa-lock"></i> Autorización de Compra: Tarjeta pre-autorizada de forma segura por el monto máximo.
-                    </p>
+                <div class="form-group">
+                    <label for="card-holder"><i class="fas fa-user"></i> Nombre en la Tarjeta</label>
+                    <input type="text" id="card-holder" value="JUAN PEREZ" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-number"><i class="fas fa-hashtag"></i> Número de Tarjeta</label>
+                    <input type="text" id="card-number" value="4XXX XXXX XXXX 1234" required>
                 </div>
 
-                <button type="submit" class="btn-primary" id="create-button">
-                    <i class="fas fa-chart-line"></i> Crear Orden de Trading
+                <div class="two-columns">
+                    <div class="form-group">
+                        <label for="expiry-date"><i class="fas fa-calendar"></i> Fecha Exp.</label>
+                        <input type="text" id="expiry-date" value="12/28" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv"><i class="fas fa-lock"></i> CVV</label>
+                        <input type="text" id="cvv" value="123" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width" style="margin-top: 10px;">
+                    <p style="font-size: 14px; color: var(--danger-color); font-weight: 600;">
+                        <i class="fas fa-info-circle"></i> *Solo se realizará una pre-autorización. La compra final solo se ejecuta si el precio baja a su límite o menos.*
+                    </p>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="background-color: var(--danger-color);" id="auth-button">
+                    <i class="fas fa-shield-alt"></i> Autorizar Pago e Iniciar Trading
                 </button>
             </form>
         </section>
 
         <section id="active-order-section">
-            <h2><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i>2. Monitoreo Activo</h2>
+            <h2><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i>3. Monitoreo Activo</h2>
             
             <div class="trading-panel">
                 <div class="status-box status-waiting" id="order-status">ACTIVA (Monitoreando)</div>
@@ -229,7 +300,7 @@
         </section>
 
         <section id="execution-success">
-            <h2><i class="fas fa-check-circle" style="margin-right: 10px;"></i>¡Orden Ejecutada con Éxito!</h2>
+            <h2 style="color: var(--success-color); border-left-color: var(--success-color);"><i class="fas fa-check-circle" style="margin-right: 10px;"></i>¡Orden Ejecutada con Éxito!</h2>
             <div class="trading-panel" style="background-color: #e6f7ed; border-color: var(--success-color);">
                 <p style="font-size: 20px; font-weight: bold; color: var(--success-color); text-align: center; margin-bottom: 20px;">
                     ¡TU VUELO HA SIDO COMPRADO AUTOMÁTICAMENTE!
@@ -256,7 +327,6 @@
     </div>
 
     <script>
-        // Variables y funciones JS (Sin cambios funcionales, solo se agregaron los campos al HTML)
         let limitPrice = 0;
         let checkCount = 0;
         let checkInterval;
@@ -266,32 +336,46 @@
         const EXECUTION_CHECK_COUNT = 5;
 
         const createSection = document.getElementById('create-order-section');
+        const paymentSection = document.getElementById('payment-auth-section'); // Nuevo
         const activeSection = document.getElementById('active-order-section');
         const successSection = document.getElementById('execution-success');
-        const form = document.getElementById('order-form');
+        
+        const orderForm = document.getElementById('order-form');
+        const authForm = document.getElementById('auth-form'); // Nuevo
 
-        form.addEventListener('submit', (e) => {
+        // PASO 1: Captura de orden y pasa a la autorización de pago
+        orderForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            // Capturar el precio límite para mostrarlo en el siguiente paso
+            limitPrice = parseFloat(document.getElementById('precio-limite').value);
+            
+            document.getElementById('auth-limit-display').textContent = `$${limitPrice.toFixed(2)} USD`;
+            
+            // Transición a la pantalla de autorización de pago
+            createSection.style.display = 'none';
+            paymentSection.style.display = 'block';
+        });
+
+        // PASO 2: Autoriza el pago y pasa al monitoreo activo
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulación: Si la autorización fuera real, aquí se llamaría al proveedor de pagos.
+            // Asumiendo éxito, procedemos a la fase de monitoreo.
             startMonitoring();
         });
 
+        // PASO 3: Inicia el monitoreo
         function startMonitoring() {
-            limitPrice = parseFloat(document.getElementById('precio-limite').value);
             const vigenciaHours = parseInt(document.getElementById('vigencia').value);
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
-            const fechaIda = document.getElementById('fecha-ida').value;
-            const fechaVuelta = document.getElementById('fecha-vuelta').value;
-            
-            // *Muestra las fechas en la consola para confirmar que se capturan*
-            console.log(`Orden creada: ${origen} a ${destino}. Ida: ${fechaIda}, Vuelta: ${fechaVuelta}.`);
 
             document.getElementById('limit-price').textContent = `$${limitPrice.toFixed(2)} USD`;
             document.getElementById('route-info').textContent = `${origen.split('(')[0].trim()} ➡️ ${destino.split('(')[0].trim()}`;
             
-            createSection.style.display = 'none';
+            paymentSection.style.display = 'none';
             activeSection.style.display = 'block';
-            successSection.style.display = 'none';
             
             checkCount = 0;
             document.getElementById('check-count').textContent = checkCount;
@@ -302,6 +386,7 @@
             startCountdown(vigenciaHours);
         }
 
+        // --- Funciones de monitoreo y countdown (Mantenidas) ---
         function checkPrice() {
             checkCount++;
             document.getElementById('check-count').textContent = checkCount;
@@ -374,11 +459,14 @@
             clearInterval(checkInterval);
             clearInterval(countdownInterval);
             alert("Orden de Trading cancelada por el usuario.");
+            // Regresar al Home
             createSection.style.display = 'block';
             activeSection.style.display = 'none';
             successSection.style.display = 'none';
+            paymentSection.style.display = 'none';
         }
         
+        // Inicializar el display de precio límite en el Home (aunque se actualizará al hacer click)
         document.getElementById('limit-price').textContent = `$${parseFloat(document.getElementById('precio-limite').value).toFixed(2)} USD`;
     </script>
 </body>

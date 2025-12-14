@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradingFlight MVP - Columna Única</title>
+    <title>TradingFlight MVP - Columna Única con Fechas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Paleta y Reset Básico */
@@ -65,7 +65,7 @@
             border-left: 4px solid var(--primary-color);
         }
 
-        /* --- Estilos de Formulario: ¡AHORA ES SIEMPRE UNA COLUMNA! --- */
+        /* --- Estilos de Formulario: COLUMNA ÚNICA --- */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr; /* Forzar SIEMPRE una sola columna */
@@ -81,8 +81,10 @@
             font-size: 16px;
             box-sizing: border-box; 
         }
+        /* Estilo específico para el campo de precio límite */
         #precio-limite { font-size: 28px; font-weight: 700; color: var(--danger-color); border: 2px solid var(--danger-color); text-align: center; background-color: #fffafa; }
-        .full-width { grid-column: 1 / 2; /* Sigue siendo 1 columna */ }
+        
+        .full-width { grid-column: 1 / 2; }
         .btn-primary {
             background-color: var(--primary-color);
             color: white;
@@ -92,7 +94,7 @@
             cursor: pointer;
             font-size: 17px;
             font-weight: 600;
-            grid-column: 1 / 2; /* Sigue siendo 1 columna */
+            grid-column: 1 / 2; 
             margin-top: 10px;
             width: 100%;
             box-sizing: border-box;
@@ -107,7 +109,7 @@
             margin-top: 15px;
             box-sizing: border-box;
         }
-        /* Mantenemos el grid de métricas de 3 columnas, pero lo forzamos a 1 columna en móvil (como ya funciona) */
+        .status-box { font-size: 17px; font-weight: 700; padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center; }
         .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-bottom: 15px; }
         .metric-box { background: #fff; padding: 15px 8px; border-radius: var(--border-radius); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); }
         .metric-title { font-size: 11px; color: #6c757d; margin-bottom: 3px; text-transform: uppercase; }
@@ -119,7 +121,7 @@
         .price-down { color: var(--success-color); }
 
         /* ======================================= */
-        /* MEDIA QUERIES (Ajustes finos, ya no necesarios para el formulario) */
+        /* MEDIA QUERIES (Ajustes finos) */
         /* ======================================= */
         @media (max-width: 650px) {
             .container {
@@ -127,14 +129,10 @@
                 margin: 5px auto; 
                 padding: 15px 10px; 
             }
-            
-            /* Métricas: Forzar 1 columna (esto ya funcionaba antes) */
             .metric-grid {
                 grid-template-columns: 1fr;
                 gap: 8px;
             }
-            
-            /* Títulos y fuentes más pequeños */
             h1 { font-size: 22px; }
             h2 { font-size: 18px; }
             .metric-value { font-size: 20px; }
@@ -156,16 +154,26 @@
             <p style="color: #6c757d;">Establece tus parámetros de vuelo y tu presupuesto máximo. La compra se ejecutará por ti.</p>
             
             <form class="form-grid" id="order-form">
+                
                 <div class="form-group">
                     <label for="origen"><i class="fas fa-map-marker-alt"></i> Origen</label>
                     <input type="text" id="origen" value="Buenos Aires (BUE)" required>
                 </div>
                 <div class="form-group">
+                    <label for="fecha-ida"><i class="fas fa-calendar-alt"></i> Fecha de Salida (Ida)</label>
+                    <input type="date" id="fecha-ida" value="2026-03-01" required>
+                </div>
+
+                <div class="form-group">
                     <label for="destino"><i class="fas fa-location-arrow"></i> Destino</label>
                     <input type="text" id="destino" value="Nueva York (NYC)" required>
                 </div>
-                
                 <div class="form-group">
+                    <label for="fecha-vuelta"><i class="fas fa-calendar-alt"></i> Fecha de Regreso (Vuelta)</label>
+                    <input type="date" id="fecha-vuelta" value="2026-03-15" required>
+                </div>
+                
+                <div class="form-group" style="margin-top: 10px;">
                     <label for="precio-limite"><i class="fas fa-dollar-sign"></i> Precio Límite (USD)</label>
                     <input type="number" id="precio-limite" value="600" min="100" required>
                 </div>
@@ -174,7 +182,7 @@
                     <input type="number" id="vigencia" value="48" min="1" required>
                 </div>
                 
-                <div class="form-group full-width" style="margin-top: -15px;">
+                <div class="form-group full-width" style="margin-top: -5px;">
                     <p style="font-size: 14px; color: var(--success-color); font-weight: 600;">
                         <i class="fas fa-lock"></i> Autorización de Compra: Tarjeta pre-autorizada de forma segura por el monto máximo.
                     </p>
@@ -185,7 +193,7 @@
                 </button>
             </form>
         </section>
-        
+
         <section id="active-order-section">
             <h2><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i>2. Monitoreo Activo</h2>
             
@@ -248,6 +256,7 @@
     </div>
 
     <script>
+        // Variables y funciones JS (Sin cambios funcionales, solo se agregaron los campos al HTML)
         let limitPrice = 0;
         let checkCount = 0;
         let checkInterval;
@@ -271,6 +280,11 @@
             const vigenciaHours = parseInt(document.getElementById('vigencia').value);
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
+            const fechaIda = document.getElementById('fecha-ida').value;
+            const fechaVuelta = document.getElementById('fecha-vuelta').value;
+            
+            // *Muestra las fechas en la consola para confirmar que se capturan*
+            console.log(`Orden creada: ${origen} a ${destino}. Ida: ${fechaIda}, Vuelta: ${fechaVuelta}.`);
 
             document.getElementById('limit-price').textContent = `$${limitPrice.toFixed(2)} USD`;
             document.getElementById('route-info').textContent = `${origen.split('(')[0].trim()} ➡️ ${destino.split('(')[0].trim()}`;

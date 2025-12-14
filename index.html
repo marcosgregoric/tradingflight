@@ -6,278 +6,278 @@
     <title>TradingFlight MVP - Diseño Responsive</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Paleta de Colores y Tipografía (Mantenida) */
-        :root {
-            --primary-color: #0070c0;
-            --secondary-color: #f7f9fc;
-            --text-color: #333;
-            --light-gray: #e9ecef;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            --border-radius: 8px;
-        }
+    /* Paleta de Colores y Tipografía (Mantenida) */
+    :root {
+        --primary-color: #0070c0;
+        --secondary-color: #f7f9fc;
+        --text-color: #333;
+        --light-gray: #e9ecef;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        --border-radius: 8px;
+    }
 
+    body {
+        font-family: var(--font-family);
+        background-color: var(--secondary-color);
+        margin: 0;
+        padding: 30px; /* Padding para escritorio */
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 40px; /* Padding para escritorio */
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    /* LOGO y TÍTULO (Mantenido) */
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid var(--light-gray);
+    }
+
+    .logo-icon {
+        font-size: 36px;
+        color: var(--primary-color);
+        margin-right: 10px;
+    }
+
+    h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--text-color);
+        margin: 0;
+    }
+    
+    .slogan {
+        text-align: center;
+        font-style: italic;
+        color: #6c757d;
+        margin-top: -10px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-top: 30px;
+        margin-bottom: 20px;
+        padding-left: 10px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    /* --- Estilos de Formulario --- */
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #555;
+        font-size: 14px;
+    }
+
+    input:not([type="checkbox"]), select {
+        padding: 12px 15px;
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    input:focus, select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 112, 192, 0.1);
+        outline: none;
+    }
+
+    #precio-limite {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--danger-color);
+        border: 2px solid var(--danger-color);
+        text-align: center;
+        background-color: #fffafa;
+    }
+
+    .full-width {
+        grid-column: 1 / 3;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background-color 0.2s, transform 0.1s;
+        grid-column: 1 / 3;
+        margin-top: 15px;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+        background-color: #005a9f;
+        transform: translateY(-1px);
+    }
+    
+    .btn-primary:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* --- Estilos del Panel de Trading Activo (Mantenido) --- */
+    .trading-panel {
+        background-color: var(--secondary-color);
+        border: 1px solid var(--light-gray);
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 20px;
+    }
+    
+    .status-box {
+        font-size: 18px;
+        font-weight: 700;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .status-waiting {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    .status-executed {
+        background-color: var(--success-color);
+        color: white;
+    }
+
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .metric-box {
+        background: #fff;
+        padding: 20px 10px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .metric-title {
+        font-size: 12px;
+        color: #6c757d;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+
+    .metric-value {
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .price-current {
+        color: var(--danger-color);
+    }
+    
+    .price-down {
+        color: var(--success-color);
+    }
+
+    .route-info {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+    .timer {
+        font-size: 16px;
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-top: 5px;
+    }
+    
+    /* Ocultar sección de demo al inicio */
+    #active-order-section, #execution-success {
+        display: none;
+    }
+
+    /* ======================================= */
+    /* MEDIA QUERIES (OPTIMIZACIÓN MÓVIL) */
+    /* ======================================= */
+    @media (max-width: 600px) {
         body {
-            font-family: var(--font-family);
-            background-color: var(--secondary-color);
-            margin: 0;
-            padding: 30px;
-            color: var(--text-color);
-            line-height: 1.6;
+            padding: 10px; /* Reducir aún más el padding del body */
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        /* LOGO y TÍTULO */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .logo-icon {
-            font-size: 36px;
-            color: var(--primary-color);
-            margin-right: 10px;
-        }
-
-        h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin: 0;
+            padding: 20px 15px; /* Reducir padding horizontal del contenedor */
+            border-radius: 10px;
         }
         
-        .slogan {
-            text-align: center;
-            font-style: italic;
-            color: #6c757d;
-            margin-top: -10px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-top: 30px;
-            margin-bottom: 20px;
-            padding-left: 10px;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        /* --- Estilos de Formulario --- */
+        /* Formulario: Forzar 1 columna */
         .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #555;
-            font-size: 14px;
-        }
-
-        input:not([type="checkbox"]), select {
-            padding: 12px 15px;
-            border: 1px solid var(--light-gray);
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        
-        input:focus, select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 112, 192, 0.1);
-            outline: none;
-        }
-
-        #precio-limite {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--danger-color);
-            border: 2px solid var(--danger-color);
-            text-align: center;
-            background-color: #fffafa;
-        }
-
-        .full-width {
-            grid-column: 1 / 3;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 600;
-            transition: background-color 0.2s, transform 0.1s;
-            grid-column: 1 / 3;
-            margin-top: 15px;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background-color: #005a9f;
-            transform: translateY(-1px);
-        }
-        
-        .btn-primary:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        /* --- Estilos del Panel de Trading Activo --- */
-        .trading-panel {
-            background-color: var(--secondary-color);
-            border: 1px solid var(--light-gray);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-        
-        .status-box {
-            font-size: 18px;
-            font-weight: 700;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .status-waiting {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        .status-executed {
-            background-color: var(--success-color);
-            color: white;
-        }
-
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr; 
             gap: 15px;
-            text-align: center;
-            margin-bottom: 20px;
+        }
+        .full-width {
+            grid-column: 1 / 2;
+        }
+        
+        /* Métricas: Forzar 1 columna para mayor claridad */
+        .metric-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        /* Ajuste de Títulos */
+        h1 {
+            font-size: 26px;
+        }
+        h2 {
+            font-size: 18px;
         }
 
-        .metric-box {
-            background: #fff;
-            padding: 20px 10px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .metric-title {
-            font-size: 12px;
-            color: #6c757d;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
+        /* Ajustes de tamaño de fuente en métricas */
         .metric-value {
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .price-current {
-            color: var(--danger-color);
+            font-size: 24px;
         }
         
-        .price-down {
-            color: var(--success-color);
-        }
-
-        .route-info {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-        .timer {
+        .btn-primary {
+            width: 100%;
             font-size: 16px;
-            color: var(--primary-color);
-            font-weight: 500;
-            margin-top: 5px;
         }
         
-        /* Ocultar sección de demo al inicio */
-        #active-order-section, #execution-success {
-            display: none;
+        /* Asegurar que el botón de cancelar sea 100% de ancho */
+        #active-order-section .btn-primary {
+            width: 100%;
         }
-
-        /* ======================================= */
-        /* MEDIA QUERIES (OPTIMIZACIÓN MÓVIL) */
-        /* ======================================= */
-        @media (max-width: 600px) {
-            body {
-                padding: 15px; /* Reducir padding general */
-            }
-
-            .container {
-                padding: 20px;
-                border-radius: 10px;
-            }
-            
-            /* Ajuste de Títulos */
-            h1 {
-                font-size: 28px;
-            }
-            h2 {
-                font-size: 20px;
-            }
-            
-            /* Formulario: de 2 columnas a 1 columna */
-            .form-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            .full-width {
-                grid-column: 1 / 2; /* Asegurar que ocupe todo el ancho */
-            }
-
-            /* Métricas: de 3 columnas a 1 columna (o 2 si es necesario) */
-            .metric-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            
-            /* Reducir tamaño de fuente en métricas para que quepan */
-            .metric-value {
-                font-size: 24px;
-            }
-            
-            .btn-primary {
-                width: 100%;
-                font-size: 16px;
-            }
-            
-            /* Botón Cancelar en la sección activa */
-            #active-order-section .btn-primary {
-                width: 100%;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="container">
@@ -507,3 +507,4 @@
     </script>
 </body>
 </html>
+

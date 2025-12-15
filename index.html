@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradingFlight MVP - Autorización de Pago</title>
+    <title>TradingFlight MVP - Diseño Moderno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Paleta y Reset Básico */
         :root {
-            --primary-color: #0070c0;
-            --secondary-color: #f7f9fc;
-            --text-color: #333;
-            --light-gray: #e9ecef;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            --border-radius: 8px;
+            --primary-color: #0060df; /* Azul corporativo, más vibrante */
+            --secondary-color: #f0f4f8; /* Gris muy claro para fondos */
+            --text-color: #1a1a1a;
+            --light-gray: #dde5ed; /* Borde más suave */
+            --success-color: #10b981; /* Verde moderno */
+            --danger-color: #ef4444; /* Rojo moderno */
+            --font-family: 'Inter', sans-serif;
+            --border-radius: 12px; /* Más redondeado */
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave */
+            --shadow-deep: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
 
         /* Asegurar que no haya desbordamiento */
@@ -30,16 +33,17 @@
             background-color: var(--secondary-color);
             color: var(--text-color);
             line-height: 1.6;
+            padding-bottom: 50px; /* Espacio al final */
         }
 
         .container {
-            width: calc(100% - 20px); 
-            max-width: 800px;
-            margin: 10px auto; 
+            width: calc(100% - 30px); /* Más margen a los lados */
+            max-width: 850px;
+            margin: 15px auto; 
             background: #fff;
-            padding: 20px; 
-            border-radius: 16px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px; /* Más padding interno */
+            border-radius: 20px; /* Muy redondeado */
+            box-shadow: var(--shadow-light); /* Sombra suave */
             box-sizing: border-box; 
         }
 
@@ -48,132 +52,265 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
             border-bottom: 1px solid var(--light-gray);
         }
-        .logo-icon { font-size: 32px; color: var(--primary-color); margin-right: 8px; }
-        h1 { font-size: 28px; font-weight: 700; color: var(--text-color); margin: 0; }
-        .slogan { text-align: center; font-style: italic; color: #6c757d; margin-top: -10px; margin-bottom: 15px; }
+        .logo-icon { 
+            font-size: 38px; 
+            color: var(--primary-color); 
+            margin-right: 10px; 
+        }
+        h1 { 
+            font-size: 32px; 
+            font-weight: 900; /* Más peso para impacto */
+            color: var(--text-color); 
+            margin: 0; 
+        }
+        .slogan { 
+            text-align: center; 
+            font-style: italic; 
+            color: #777; 
+            margin-top: -15px; 
+            margin-bottom: 25px; 
+            font-size: 16px;
+        }
         h2 {
-            font-size: 22px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: 700;
             color: var(--primary-color);
-            margin-top: 25px;
-            margin-bottom: 15px;
+            margin-top: 35px;
+            margin-bottom: 20px;
             padding-left: 10px;
             border-left: 4px solid var(--primary-color);
         }
 
-        /* --- Estilos de Formulario (Columna Única) --- */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr; /* Siempre una columna */
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .form-group { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 6px; color: #555; font-size: 14px; }
-        input:not([type="checkbox"]), select {
-            padding: 12px 15px;
-            border: 1px solid var(--light-gray);
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            box-sizing: border-box; 
-        }
-        /* Estilo específico para el campo de precio límite */
-        #precio-limite { font-size: 28px; font-weight: 700; color: var(--danger-color); border: 2px solid var(--danger-color); text-align: center; background-color: #fffafa; }
-        
-        /* Contenedor de 2 columnas para el formulario de pago (Escritorio) */
-        .payment-grid {
+        /* --- Formularios y Campos --- */
+        .form-grid, .search-form-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px; /* Más espacio entre campos */
+            margin-bottom: 25px;
         }
-        /* Clase para campos de tarjeta que pueden ir uno al lado del otro en escritorio */
+        .form-group { display: flex; flex-direction: column; }
+        label { 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            color: #555; 
+            font-size: 15px; 
+        }
+        input:not([type="checkbox"]), select {
+            padding: 14px 18px; /* Más padding para sensación premium */
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box; 
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 96, 223, 0.2);
+            outline: none;
+        }
+        
+        /* Contenedor de 2 columnas para el formulario de pago */
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
         }
 
-        /* Valor clave en la pantalla de pago */
-        .auth-value {
-            font-size: 30px;
-            font-weight: 700;
-            color: var(--danger-color);
-            margin-bottom: 15px;
-            text-align: center;
-            background-color: #fffafa;
-            padding: 10px;
-            border-radius: var(--border-radius);
-            border: 2px dashed var(--danger-color);
-        }
-
-        /* Botones */
-        .full-width { grid-column: 1 / 2; }
+        /* --- Botones --- */
         .btn-primary {
-            background-color: var(--primary-color);
+            background: var(--primary-color);
             color: white;
-            padding: 14px 20px;
+            padding: 16px 25px;
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0, 96, 223, 0.4); /* Sombra para profundidad */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 96, 223, 0.5);
+        }
+        .btn-secondary {
+            background-color: #fff;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 14px 25px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 17px;
             font-weight: 600;
-            grid-column: 1 / 2; 
-            margin-top: 10px;
             width: 100%;
             box-sizing: border-box;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+        .btn-secondary:hover { 
+            background-color: var(--secondary-color); 
+        }
+        
+        /* Botones específicos de Trading */
+        #auth-button {
+            background: var(--danger-color);
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+        }
+        #auth-button:hover {
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.5);
         }
 
-        /* --- Estilos de las Métricas (Paneles de Monitoreo) --- */
+        /* --- Resultados de Vuelo (Cards) --- */
+        .flight-card {
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.2s;
+        }
+        .flight-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .flight-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .flight-route {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        .flight-info {
+            font-size: 14px;
+            color: #777;
+        }
+        .flight-price-container {
+            text-align: right;
+            margin-left: 20px;
+        }
+        .flight-price {
+            font-size: 30px;
+            font-weight: 900;
+            color: var(--danger-color);
+        }
+        .price-label {
+            font-size: 12px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        /* --- Trading Panels y Métricas --- */
+        .auth-value { 
+            font-size: 36px; 
+            font-weight: 900; 
+            color: var(--danger-color); 
+            margin-bottom: 20px; 
+            text-align: center; 
+            background-color: #ffebeb; /* Fondo de alerta */
+            padding: 15px; 
+            border-radius: 10px; 
+            border: 2px dashed var(--danger-color);
+        }
         .trading-panel {
-            background-color: var(--secondary-color);
+            background-color: #fff;
             border: 1px solid var(--light-gray);
             border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-            box-sizing: border-box;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: var(--shadow-light);
         }
-        .status-box { font-size: 17px; font-weight: 700; padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center; }
-        .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-bottom: 15px; }
-        .metric-box { background: #fff; padding: 15px 8px; border-radius: var(--border-radius); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); }
-        .metric-title { font-size: 11px; color: #6c757d; margin-bottom: 3px; text-transform: uppercase; }
-        .metric-value { font-size: 26px; font-weight: 700; color: var(--text-color); }
-        
-        /* Ocultar secciones al inicio */
-        #payment-auth-section, #active-order-section, #execution-success { display: none; }
+        .status-box { 
+            font-size: 18px; 
+            font-weight: 700; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+        }
+        .metric-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px; /* Espacio entre métricas */
+            text-align: center; 
+            margin-bottom: 15px; 
+        }
+        .metric-box { 
+            background: var(--secondary-color); /* Fondo de métrica */
+            padding: 18px 10px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
+        }
+        .metric-title { 
+            font-size: 12px; 
+            color: #777; 
+            margin-bottom: 5px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .metric-value { 
+            font-size: 30px; 
+            font-weight: 900; 
+            color: var(--text-color); 
+        }
         
         /* Colores de estado */
-        .status-waiting { background-color: #fff3cd; color: #856404; }
+        .status-waiting { background-color: #fff9e6; color: #b45309; }
         .status-executed { background-color: var(--success-color); color: white; }
         .price-current { color: var(--danger-color); }
         .price-down { color: var(--success-color); }
+        
+        /* Ocultar secciones al inicio */
+        #results-section, #create-order-section, #payment-auth-section, #active-order-section, #execution-success { display: none; }
+
 
         /* ======================================= */
-        /* MEDIA QUERIES (Ajustes finos para móviles) */
+        /* MEDIA QUERIES (Ajustes móviles) */
         /* ======================================= */
         @media (max-width: 650px) {
             .container {
-                width: 98%; 
-                margin: 5px auto; 
-                padding: 15px 10px; 
+                width: 100%; 
+                margin: 0;
+                padding: 15px;
+                border-radius: 0;
+                box-shadow: none;
             }
-            .metric-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-            /* Forzar las 2 columnas del formulario de pago a 1 columna en móvil */
-            .two-columns {
+            .metric-grid, .two-columns {
                 grid-template-columns: 1fr;
             }
-            h1 { font-size: 22px; }
-            h2 { font-size: 18px; }
-            .metric-value { font-size: 20px; }
-            .logo-icon { font-size: 28px; }
-            .trading-panel { padding: 15px; }
+            .header {
+                padding-bottom: 10px;
+                margin-bottom: 15px;
+            }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .flight-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+            .flight-price-container {
+                margin-left: 0;
+                margin-top: 10px;
+                text-align: left;
+            }
+            .flight-price { font-size: 24px; }
+            .metric-value { font-size: 24px; }
+            .auth-value { font-size: 28px; }
         }
     </style>
 </head>
@@ -185,31 +322,71 @@
         </header>
         <p class="slogan">"Vos ponés el valor a tu vuelo"</p>
         
+        <section id="search-section">
+            <h2><i class="fas fa-search" style="margin-right: 10px;"></i>1. Buscar Vuelo</h2>
+            
+            <form class="search-form-grid" id="search-form">
+                
+                <div class="trip-type">
+                    <input type="radio" id="round-trip" name="trip-type" value="round" checked>
+                    <label for="round-trip">Ida y Vuelta</label>
+                    <input type="radio" id="one-way" name="trip-type" value="one-way">
+                    <label for="one-way">Solo Ida</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="search-origen"><i class="fas fa-plane-departure"></i> Vuelo Desde</label>
+                    <input type="text" id="search-origen" value="Buenos Aires (BUE)" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="search-destino"><i class="fas fa-plane-arrival"></i> Vuelo Hacia</label>
+                    <input type="text" id="search-destino" value="Nueva York (NYC)" required>
+                </div>
+
+                <div class="two-columns">
+                    <div class="form-group">
+                        <label for="search-ida"><i class="fas fa-calendar-alt"></i> Fecha de Ida</label>
+                        <input type="date" id="search-ida" value="2026-03-01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="search-vuelta"><i class="fas fa-calendar-alt"></i> Fecha de Vuelta</label>
+                        <input type="date" id="search-vuelta" value="2026-03-15" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="search-button">
+                    <i class="fas fa-search"></i> Buscar Vuelo
+                </button>
+            </form>
+        </section>
+        
+        <section id="results-section">
+            <h2><i class="fas fa-tag" style="margin-right: 10px;"></i>2. Opciones y Precios Actuales</h2>
+            <div id="flight-results-display">
+                </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-primary" id="start-trading-button">
+                    <i class="fas fa-chart-line"></i> Pasar a Trading (Definir Precio Límite)
+                </button>
+                <button class="btn-secondary" onclick="resetSearch()">
+                    <i class="fas fa-redo"></i> Nueva Búsqueda
+                </button>
+            </div>
+        </section>
+
         <section id="create-order-section">
-            <h2><i class="fas fa-calculator" style="margin-right: 10px;"></i>1. Definir Orden de Trading</h2>
-            <p style="color: #6c757d;">Establece tus parámetros de vuelo y tu presupuesto máximo. La compra se ejecutará por ti.</p>
+            <h2><i class="fas fa-calculator" style="margin-right: 10px;"></i>3. Definir Orden de Trading</h2>
+            <p style="color: #777;">Establece tu precio límite y vigencia. Esto te asegura el vuelo si el precio baja.</p>
             
             <form class="form-grid" id="order-form">
                 
                 <div class="form-group">
-                    <label for="origen"><i class="fas fa-map-marker-alt"></i> Origen</label>
-                    <input type="text" id="origen" value="Buenos Aires (BUE)" required>
-                </div>
-                <div class="form-group">
-                    <label for="fecha-ida"><i class="fas fa-calendar-alt"></i> Fecha de Salida (Ida)</label>
-                    <input type="date" id="fecha-ida" value="2026-03-01" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="destino"><i class="fas fa-location-arrow"></i> Destino</label>
-                    <input type="text" id="destino" value="Nueva York (NYC)" required>
-                </div>
-                <div class="form-group">
-                    <label for="fecha-vuelta"><i class="fas fa-calendar-alt"></i> Fecha de Regreso (Vuelta)</label>
-                    <input type="date" id="fecha-vuelta" value="2026-03-15" required>
+                    <label>Ruta Seleccionada</label>
+                    <input type="text" id="selected-route-display" value="" disabled style="font-weight: 600; background-color: var(--secondary-color); color: var(--primary-color);">
                 </div>
                 
-                <div class="form-group" style="margin-top: 10px;">
+                <div class="form-group">
                     <label for="precio-limite"><i class="fas fa-dollar-sign"></i> Precio Límite (USD)</label>
                     <input type="number" id="precio-limite" value="600" min="100" required>
                 </div>
@@ -217,7 +394,7 @@
                     <label for="vigencia"><i class="fas fa-clock"></i> Vigencia de la Orden (Horas)</label>
                     <input type="number" id="vigencia" value="48" min="1" required>
                 </div>
-
+                
                 <button type="submit" class="btn-primary" id="continue-button">
                     <i class="fas fa-arrow-right"></i> Continuar a Autorización de Pago
                 </button>
@@ -225,10 +402,10 @@
         </section>
         
         <section id="payment-auth-section">
-            <h2 style="color: var(--danger-color); border-left-color: var(--danger-color);"><i class="fas fa-credit-card" style="margin-right: 10px;"></i>2. Autorización de Pago</h2>
-            <p style="color: #6c757d;">Para activar el trading, necesitamos una pre-autorización de su método de pago.</p>
+            <h2 style="color: var(--danger-color); border-left-color: var(--danger-color);"><i class="fas fa-credit-card" style="margin-right: 10px;"></i>4. Autorización de Pago</h2>
+            <p style="color: #777;">Para activar el trading, necesitamos una pre-autorización de su método de pago.</p>
             
-            <p style="font-weight: 600; text-align: center;">Monto Máximo a Autorizar:</p>
+            <p style="font-weight: 600; text-align: center; margin-bottom: 5px;">Monto Máximo a Autorizar:</p>
             <div class="auth-value" id="auth-limit-display">$600 USD</div>
 
             <form class="payment-grid" id="auth-form">
@@ -259,22 +436,23 @@
                     </p>
                 </div>
                 
-                <button type="submit" class="btn-primary" style="background-color: var(--danger-color);" id="auth-button">
+                <button type="submit" class="btn-primary" id="auth-button">
                     <i class="fas fa-shield-alt"></i> Autorizar Pago e Iniciar Trading
                 </button>
             </form>
         </section>
 
+
         <section id="active-order-section">
-            <h2><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i>3. Monitoreo Activo</h2>
+            <h2><i class="fas fa-tachometer-alt" style="margin-right: 10px;"></i>5. Monitoreo Activo</h2>
             
             <div class="trading-panel">
                 <div class="status-box status-waiting" id="order-status">ACTIVA (Monitoreando)</div>
 
-                <div style="text-align: center; margin-bottom: 15px;">
-                    <div class="route-info" id="route-info">BUE ➡️ NYC</div>
-                    <div class="timer" id="time-remaining">48h 00m restantes</div>
-                    <p style="font-size: 14px; color: #6c757d;" id="monitoring-info">Chequeando precios cada 30 segundos...</p>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="route-info" id="route-info" style="font-size: 18px; font-weight: 600; color: var(--primary-color);"></div>
+                    <div class="timer" id="time-remaining" style="font-size: 16px; color: #777; margin-top: 5px;"></div>
+                    <p style="font-size: 14px; color: #6c757d; margin-top: 10px;" id="monitoring-info">Chequeando precios cada 30 segundos...</p>
                 </div>
                 
                 <div class="metric-grid">
@@ -292,8 +470,8 @@
                     </div>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="btn-primary" style="background-color: var(--danger-color);" onclick="cancelOrder()">
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="btn-primary" style="background: var(--danger-color); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);" onclick="cancelOrder()">
                     <i class="fas fa-times-circle"></i> Cancelar Orden
                 </button>
             </div>
@@ -301,25 +479,25 @@
 
         <section id="execution-success">
             <h2 style="color: var(--success-color); border-left-color: var(--success-color);"><i class="fas fa-check-circle" style="margin-right: 10px;"></i>¡Orden Ejecutada con Éxito!</h2>
-            <div class="trading-panel" style="background-color: #e6f7ed; border-color: var(--success-color);">
-                <p style="font-size: 20px; font-weight: bold; color: var(--success-color); text-align: center; margin-bottom: 20px;">
+            <div class="trading-panel" style="background-color: #e6fff3; border-color: var(--success-color);">
+                <p style="font-size: 20px; font-weight: 700; color: var(--success-color); text-align: center; margin-bottom: 25px;">
                     ¡TU VUELO HA SIDO COMPRADO AUTOMÁTICAMENTE!
                 </p>
                 <div class="metric-grid">
-                    <div class="metric-box">
+                    <div class="metric-box" style="background-color: #fff;">
                         <div class="metric-title">Precio Comprado</div>
                         <div class="metric-value price-down" id="purchased-price"></div>
                     </div>
-                    <div class="metric-box">
+                    <div class="metric-box" style="background-color: #fff;">
                         <div class="metric-title">Ahorro vs. Límite</div>
                         <div class="metric-value price-down" id="savings-amount"></div>
                     </div>
-                    <div class="metric-box">
+                    <div class="metric-box" style="background-color: #fff;">
                         <div class="metric-title">Tiempo de Ejecución</div>
                         <div class="metric-value" id="execution-time"></div>
                     </div>
                 </div>
-                <p style="text-align: center; margin-top: 20px; font-size: 15px;">
+                <p style="text-align: center; margin-top: 25px; font-size: 15px; color: #555;">
                     <i class="fas fa-ticket-alt"></i> Tu billete electrónico y la confirmación de pago se enviaron a tu email. ¡Buen viaje!
                 </p>
             </div>
@@ -332,47 +510,113 @@
         let checkInterval;
         let countdownInterval;
         let executionPrice = 0;
+        let selectedFlightPrice = 0; 
+        let selectedFlightRoute = ""; 
+        
         const CHECK_PERIOD_MS = 3000;
         const EXECUTION_CHECK_COUNT = 5;
 
+        // Referencias a las secciones
+        const searchSection = document.getElementById('search-section');
+        const resultsSection = document.getElementById('results-section');
         const createSection = document.getElementById('create-order-section');
-        const paymentSection = document.getElementById('payment-auth-section'); // Nuevo
+        const paymentSection = document.getElementById('payment-auth-section'); 
         const activeSection = document.getElementById('active-order-section');
         const successSection = document.getElementById('execution-success');
         
+        // Referencias a formularios
+        const searchForm = document.getElementById('search-form');
         const orderForm = document.getElementById('order-form');
-        const authForm = document.getElementById('auth-form'); // Nuevo
+        const authForm = document.getElementById('auth-form'); 
+        const startTradingButton = document.getElementById('start-trading-button');
 
-        // PASO 1: Captura de orden y pasa a la autorización de pago
+        // PASO 1: Búsqueda de Vuelo
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            simulateFlightSearch();
+        });
+
+        // Simula la búsqueda y muestra resultados
+        function simulateFlightSearch() {
+            const origen = document.getElementById('search-origen').value;
+            const destino = document.getElementById('search-destino').value;
+            const ida = document.getElementById('search-ida').value;
+            const vuelta = document.getElementById('search-vuelta').value;
+            const isRoundTrip = document.getElementById('round-trip').checked;
+
+            selectedFlightRoute = `${origen.split('(')[0].trim()} ➡️ ${destino.split('(')[0].trim()} (${ida} - ${isRoundTrip ? vuelta : 'Solo Ida'})`;
+
+            // Generar precios simulados (entre 650 y 850)
+            const basePrice = Math.floor(Math.random() * 200) + 650;
+            
+            const resultsHTML = `
+                <div class="flight-card">
+                    <div class="flight-details">
+                        <div class="flight-route">Vuelo Directo - Aerolínea A</div>
+                        <div class="flight-info">Duración: 11h 30m | 1 Escala</div>
+                    </div>
+                    <div class="flight-price-container">
+                        <div class="price-label">Precio Actual</div>
+                        <div class="flight-price">$${basePrice}</div>
+                    </div>
+                </div>
+                <div class="flight-card">
+                    <div class="flight-details">
+                        <div class="flight-route">Vuelo Económico - Aerolínea B</div>
+                        <div class="flight-info">Duración: 14h 00m | 2 Escalas</div>
+                    </div>
+                    <div class="flight-price-container">
+                         <div class="price-label">Precio Actual</div>
+                        <div class="flight-price">$${basePrice - 50}</div>
+                    </div>
+                </div>
+            `;
+            
+            // Usamos el precio más bajo como referencia inicial para el trading
+            selectedFlightPrice = basePrice - 50; 
+
+            document.getElementById('flight-results-display').innerHTML = resultsHTML;
+            searchSection.style.display = 'none';
+            resultsSection.style.display = 'block';
+        }
+
+        // Vuelve al buscador (Home)
+        function resetSearch() {
+            resultsSection.style.display = 'none';
+            searchSection.style.display = 'block';
+        }
+
+        // Inicia el proceso de Trading (Paso 3)
+        startTradingButton.addEventListener('click', () => {
+            document.getElementById('precio-limite').value = selectedFlightPrice; 
+            document.getElementById('selected-route-display').value = selectedFlightRoute;
+            
+            resultsSection.style.display = 'none';
+            createSection.style.display = 'block';
+        });
+
+        // PASO 3: Captura de orden y pasa a la autorización de pago
         orderForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            // Capturar el precio límite para mostrarlo en el siguiente paso
             limitPrice = parseFloat(document.getElementById('precio-limite').value);
             
             document.getElementById('auth-limit-display').textContent = `$${limitPrice.toFixed(2)} USD`;
             
-            // Transición a la pantalla de autorización de pago
             createSection.style.display = 'none';
             paymentSection.style.display = 'block';
         });
 
-        // PASO 2: Autoriza el pago y pasa al monitoreo activo
+        // PASO 4: Autoriza el pago y pasa al monitoreo activo
         authForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Simulación: Si la autorización fuera real, aquí se llamaría al proveedor de pagos.
-            // Asumiendo éxito, procedemos a la fase de monitoreo.
             startMonitoring();
         });
 
-        // PASO 3: Inicia el monitoreo
+        // PASO 5: Inicia el monitoreo
         function startMonitoring() {
             const vigenciaHours = parseInt(document.getElementById('vigencia').value);
-            const origen = document.getElementById('origen').value;
-            const destino = document.getElementById('destino').value;
-
+            document.getElementById('route-info').textContent = selectedFlightRoute;
             document.getElementById('limit-price').textContent = `$${limitPrice.toFixed(2)} USD`;
-            document.getElementById('route-info').textContent = `${origen.split('(')[0].trim()} ➡️ ${destino.split('(')[0].trim()}`;
             
             paymentSection.style.display = 'none';
             activeSection.style.display = 'block';
@@ -386,7 +630,7 @@
             startCountdown(vigenciaHours);
         }
 
-        // --- Funciones de monitoreo y countdown (Mantenidas) ---
+        // --- Funciones de monitoreo, ejecución y cancelación (Mantenidas) ---
         function checkPrice() {
             checkCount++;
             document.getElementById('check-count').textContent = checkCount;
@@ -394,7 +638,7 @@
             let currentPrice = 0;
             
             if (checkCount < EXECUTION_CHECK_COUNT) {
-                currentPrice = Math.floor(Math.random() * 60) + 620; 
+                currentPrice = Math.floor(Math.random() * 60) + limitPrice + 10; 
                 document.getElementById('monitoring-info').textContent = `Chequeando precios cada ${CHECK_PERIOD_MS / 1000} segundos...`;
                 
                 const priceDisplay = document.getElementById('current-price-display');
@@ -459,15 +703,14 @@
             clearInterval(checkInterval);
             clearInterval(countdownInterval);
             alert("Orden de Trading cancelada por el usuario.");
-            // Regresar al Home
-            createSection.style.display = 'block';
+            
+            searchSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+            createSection.style.display = 'none';
+            paymentSection.style.display = 'none';
             activeSection.style.display = 'none';
             successSection.style.display = 'none';
-            paymentSection.style.display = 'none';
         }
-        
-        // Inicializar el display de precio límite en el Home (aunque se actualizará al hacer click)
-        document.getElementById('limit-price').textContent = `$${parseFloat(document.getElementById('precio-limite').value).toFixed(2)} USD`;
     </script>
 </body>
 </html>

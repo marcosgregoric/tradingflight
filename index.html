@@ -403,46 +403,46 @@
             </form>
         </section>
         
-        <section id="payment-auth-section">
-    <h2><i class="fas fa-credit-card" style="margin-right: 10px;"></i>4. Autorización de Pago</h2>
-            <p style="color: #777;">Para activar el trading, necesitamos una pre-autorización de su método de pago.</p>
-            
-            <p style="font-weight: 600; text-align: center; margin-bottom: 5px;">Monto Máximo a Autorizar:</p>
-            <div class="auth-value" id="auth-limit-display">$600 USD</div>
+        <section id="payment-auth-section" style="padding: 0; overflow: hidden; border-radius: 20px; background: white;">
+    <div style="background-color: #FFF159; padding: 15px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+        <img src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.21.22/mercadopago/logo__large.png" alt="Mercado Pago" style="height: 25px;">
+    </div>
 
-            <form class="payment-grid" id="auth-form">
-                
-                <div class="form-group">
-                    <label for="card-holder"><i class="fas fa-user"></i> Nombre en la Tarjeta</label>
-                    <input type="text" id="card-holder" value="JUAN PEREZ" required>
-                </div>
-                <div class="form-group">
-                    <label for="card-number"><i class="fas fa-hashtag"></i> Número de Tarjeta</label>
-                    <input type="text" id="card-number" value="4XXX XXXX XXXX 1234" required>
-                </div>
+    <div style="padding: 30px 20px; text-align: center;">
+        <h2 style="border: none; padding: 0; margin-top: 0; color: #333;">Autorizar Orden Límite</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">TradingFlight requiere una pre-autorización para ejecutar tu compra de forma autónoma.</p>
+        
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; border: 1px solid #eee; margin-bottom: 25px;">
+            <div style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1px;">Monto Máximo a Ejecutar</div>
+            <div id="auth-limit-display" style="font-size: 32px; font-weight: 700; color: #009EE3;">$600 USD</div>
+            <div style="font-size: 12px; color: #4caf50; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                <i class="fas fa-shield-alt"></i> Transacción Protegida (Tokenized)
+            </div>
+        </div>
 
-                <div class="two-columns">
-                    <div class="form-group">
-                        <label for="expiry-date"><i class="fas fa-calendar"></i> Fecha Exp.</label>
-                        <input type="text" id="expiry-date" value="12/28" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv"><i class="fas fa-lock"></i> CVV</label>
-                        <input type="text" id="cvv" value="123" required>
-                    </div>
-                </div>
+        <div style="text-align: left; margin-bottom: 20px;">
+            <label style="font-size: 12px; color: #888;">Tarjeta terminada en</label>
+            <div style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; display: flex; align-items: center; gap: 10px; background: #fff;">
+                <i class="fab fa-cc-visa" style="font-size: 20px; color: #1a1f71;"></i>
+                <span style="font-weight: 600;">Visa •••• 1234</span>
+            </div>
+        </div>
 
-                <div class="form-group full-width" style="margin-top: 10px;">
-                    <p style="font-size: 14px; color: var(--danger-color); font-weight: 600;">
-                        <i class="fas fa-info-circle"></i> *Solo se realizará una pre-autorización. La compra final solo se ejecuta si el precio baja a su límite o menos.*
-                    </p>
-                </div>
-                
-                <button type="submit" class="btn-primary" id="auth-button">
-                    <i class="fas fa-shield-alt"></i> Autorizar Pago e Iniciar Trading
-                </button>
-            </form>
-        </section>
+        <button type="button" class="btn-primary" id="auth-button" onclick="startTokenizationProcess()" style="background-color: #009EE3; box-shadow: 0 4px 10px rgba(0, 158, 227, 0.3); border: none;">
+            CONFIRMAR Y ACTIVAR RADAR
+        </button>
+
+        <div id="tokenizing-loader" style="display: none; margin-top: 30px; flex-direction: column; align-items: center;">
+            <div class="spinner" style="border: 4px solid #f3f3f3; width: 40px; height: 40px; border-radius: 50%; border-top: 4px solid #009EE3; animation: spin 1s linear infinite;"></div>
+            <p style="margin-top: 15px; font-weight: 600; color: #009EE3;">Creando Token Seguro...</p>
+            <p style="font-size: 12px; color: #999;">Vinculando con protocolo TradingFlight</p>
+        </div>
+
+        <div style="margin-top: 25px; font-size: 11px; color: #bbb; display: flex; align-items: center; justify-content: center; gap: 5px;">
+            <i class="fas fa-lock"></i> Encriptación grado bancario SSL
+        </div>
+    </div>
+</section>
 
 
         <section id="active-order-section">
@@ -726,5 +726,6 @@
     </script>
 </body>
 </html>
+
 
 

@@ -81,22 +81,24 @@
             margin: 0; 
         }
         .slogan { 
-            text-align: center; 
-            font-style: italic; 
-            color: #777; 
-            margin-top: -15px; 
-            margin-bottom: 25px; 
-            font-size: 16px;
-        }
-        h2 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-top: 35px;
-            margin-bottom: 20px;
-            padding-left: 10px;
-            border-left: 4px solid var(--primary-color);
-        }
+    text-align: center; 
+    font-style: italic; 
+    color: #777; 
+    margin-top: 0px;    /* Cambia a -5px o -10px si quieres que suba más aún */
+    margin-bottom: 25px; 
+    font-size: 16px;
+    display: block;     /* Asegura que se comporte como bloque para respetar el margen */
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 15px;   /* Reducido para que no se separe tanto del slogan */
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid var(--primary-color);
+}
 
         /* --- Formularios y Campos --- */
         .form-grid, .search-form-grid {
@@ -318,7 +320,7 @@
     <div class="container">
         <a href="javascript:void(0);" onclick="resetApp()" class="header-link">
     <header class="header" style="border-bottom: none; padding-bottom: 10px;">
-        <img src="logotf.png" alt="TradingFlight" style="height: 100px; width: auto; display: block; margin: 0 auto; object-fit: contain;">
+        <img src="logotf.png" alt="TradingFlight" style="height: 120px; width: auto; display: block; margin: 0 auto; object-fit: contain;">
     </header>
 </a>
         <p class="slogan">"Vos ponés el valor a tu vuelo"</p>
@@ -743,6 +745,7 @@ function startTokenizationProcess() {
     </script>
 </body>
 </html>
+
 
 
 

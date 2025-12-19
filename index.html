@@ -403,14 +403,14 @@
             </form>
         </section>
         
-        <section id="payment-auth-section" style="padding: 0; overflow: hidden; border-radius: 20px; background: white;">
+       <section id="payment-auth-section" style="padding: 0; overflow: hidden; border-radius: 20px; background: white; display: none;">
     <div style="background-color: #FFF159; padding: 15px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
-        <img src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.21.22/mercadopago/logo__large.png" alt="Mercado Pago" style="height: 25px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Mercado_Pago_logo.svg" alt="Mercado Pago" style="height: 30px; width: auto;">
     </div>
 
     <div style="padding: 30px 20px; text-align: center;">
-        <h2 style="border: none; padding: 0; margin-top: 0; color: #333;">Autorizar Orden Límite</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">TradingFlight requiere una pre-autorización para ejecutar tu compra de forma autónoma.</p>
+        <h2 style="border: none; padding: 0; margin-top: 0; color: #333; font-size: 20px;">Autorizar Orden Límite</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">TradingFlight requiere una pre-autorización segura para ejecutar tu compra autónoma.</p>
         
         <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; border: 1px solid #eee; margin-bottom: 25px;">
             <div style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1px;">Monto Máximo a Ejecutar</div>
@@ -420,15 +420,18 @@
             </div>
         </div>
 
-        <div style="text-align: left; margin-bottom: 20px;">
-            <label style="font-size: 12px; color: #888;">Tarjeta terminada en</label>
-            <div style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; display: flex; align-items: center; gap: 10px; background: #fff;">
-                <i class="fab fa-cc-visa" style="font-size: 20px; color: #1a1f71;"></i>
-                <span style="font-weight: 600;">Visa •••• 1234</span>
+        <div style="text-align: left; margin-bottom: 25px;">
+            <label style="font-size: 12px; color: #888; display: block; margin-bottom: 5px;">Método de Pago</label>
+            <div style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; background: #fff;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fab fa-cc-visa" style="font-size: 20px; color: #1a1f71;"></i>
+                    <span style="font-weight: 600;">Visa •••• 1234</span>
+                </div>
+                <span style="font-size: 10px; color: #009EE3; font-weight: bold;">CAMBIAR</span>
             </div>
         </div>
 
-        <button type="button" class="btn-primary" id="auth-button" onclick="startTokenizationProcess()" style="background-color: #009EE3; box-shadow: 0 4px 10px rgba(0, 158, 227, 0.3); border: none;">
+        <button type="button" class="btn-primary" id="auth-button" onclick="startTokenizationProcess()" style="background-color: #009EE3; color: white; padding: 16px; border-radius: 8px; font-weight: bold; width: 100%; border: none; cursor: pointer;">
             CONFIRMAR Y ACTIVAR RADAR
         </button>
 
@@ -436,10 +439,6 @@
             <div class="spinner" style="border: 4px solid #f3f3f3; width: 40px; height: 40px; border-radius: 50%; border-top: 4px solid #009EE3; animation: spin 1s linear infinite;"></div>
             <p style="margin-top: 15px; font-weight: 600; color: #009EE3;">Creando Token Seguro...</p>
             <p style="font-size: 12px; color: #999;">Vinculando con protocolo TradingFlight</p>
-        </div>
-
-        <div style="margin-top: 25px; font-size: 11px; color: #bbb; display: flex; align-items: center; justify-content: center; gap: 5px;">
-            <i class="fas fa-lock"></i> Encriptación grado bancario SSL
         </div>
     </div>
 </section>
@@ -723,9 +722,29 @@
             alert("Orden de Trading cancelada por el usuario.");
             resetApp(); // Usar la función de reset
         }
+        // NUEVA FUNCIÓN PARA EL VIDEO DEMO
+function startTokenizationProcess() {
+    const loader = document.getElementById('tokenizing-loader');
+    const authBtn = document.getElementById('auth-button');
+    
+    // 1. Mostrar el cargando (spinner)
+    authBtn.style.display = 'none';
+    loader.style.display = 'flex';
+
+    // 2. Esperar 2.5 segundos (tiempo ideal para el video)
+    setTimeout(() => {
+        // 3. Llamar a la función que ya tenías para activar el radar
+        startMonitoring();
+        
+        // 4. Resetear la UI de esta pantalla por si se vuelve a usar
+        loader.style.display = 'none';
+        authBtn.style.display = 'block';
+    }, 2500);
+}
     </script>
 </body>
 </html>
+
 
 
 
